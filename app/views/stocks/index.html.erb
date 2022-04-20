@@ -1,0 +1,50 @@
+<div class="row">
+<div class="col">
+<h3>Search Stocks</h3>
+
+        <%= form_tag search_stock_path, remote: true, method: :get do %>
+            <div class="form-group row">
+                <div class="col-sm-9">
+                    <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
+                </div>
+                <div class="col-sm-3 no-left-padding">
+                    <%= button_tag type: :submit, class: "btn btn-success add-user" do %>
+                        <i class="bx bx-search"></i>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+
+    <div id="results">
+        
+    </div></div>
+<div class="col">
+<h3>Trending Stocks</h3>
+
+<div class= "user-list">
+    <% if @trending_stocks.any? %>
+        <% @trending_stocks.each do |stock|%>
+            <div class= "user-list-card">
+                <div>
+                    <span class="user-list-card-name"><%= stock.company_name %> (<%= stock.symbol %>)</span>
+                <p><%= stock.change_percent_s %> | <%= number_to_currency(stock.latest_price)%>  per share </p>
+                </div>
+                <div class="user-button-container">
+                    <%= link_to show_stock_path(:stock_ticker => stock.symbol, :transaction => 'buy'), class: "btn btn-success add-user" do %> 
+                            Buy
+                    <% end %>
+                    <%= link_to show_stock_path(:stock_ticker => stock.symbol, :transaction => 'sell'), class: "btn btn-danger delete-user" do %> 
+                            Sell
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+    <% else %>
+        <div class= "user-list-card-blank">
+            <i class='bx bx-confused' ></i> 
+            <p>There seems to be a problem loading the information</p>
+        </div>
+    <% end %>
+</div>  
+</div>
+</div>

@@ -1,0 +1,87 @@
+<% if current_user.status == 'approved' %>
+        <div class="row">
+            <div class="col">
+                <h3>Your Portfolio</h3>
+                <% if @stocks.any? %>
+                    <div class= "user-list">
+                        <% @stocks.each do |stock| %>
+                            <div class= "user-list-card">
+                                <div>
+                                    <span class="user-list-card-name"><%= stock.name %>  (<%= stock.ticker %>)</span>
+                                <p>Shares: <%=  number_with_delimiter(stock.quantity, :delimiter => ',', :separator => '.') %> </p>
+                                </div>
+                                <div class="user-button-container">
+                                    <%= link_to show_stock_path(:stock_ticker => stock.ticker, :transaction => 'buy'), class: "btn btn-success add-user" do %> 
+                                            Buy
+                                    <% end %>
+                                    <%= link_to show_stock_path(:stock_ticker => stock.ticker, :transaction => 'sell'), class: "btn btn-danger delete-user" do %> 
+                                            Sell
+                                    <% end %>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <%= link_to stocks_path do %>
+                        <div class= "user-list-card-blank">
+                            <i class='bx bx-happy-beaming' ></i> 
+                            <p>You have no stocks yet. Buy some?</p>
+                        </div>
+                    <% end %>
+                <% end %>
+                
+            </div>
+            <div class="col">
+                <h3>Current Balance</h3>
+                <div class="user-balance-card">
+                    <h2><%= number_to_currency(current_user.balance) %></h2>
+                    <hr>
+                    <div>
+                        <h4>Add Balance</h4>
+                        <%= form_with url: dashboards_add_balance_path, class:"form-inline" do |f| %>
+                            <div class="form-group mb-2">
+                                <%= f.number_field :amount, step: 0.01, class: "form-control" %>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <%= f.submit "Add balance", class: "btn btn-success add-user" %>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <% if false %>
+        <div class='search-area'>
+            <h3>Search Stocks</h3>
+            <%= form_tag search_stock_path, remote: true, method: :get do %>
+                <div class="form-group row">
+                    <div class="col-sm-9 no-right-padding">
+                        <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
+                    </div>
+                    <div class="col-sm-3 no-left-padding">
+                        <%= button_tag type: :submit, class: "btn btn-success add-user" do %>
+                            <%= fa_icon 'search 2x' %>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+
+        <div id="results">
+            
+        </div>
+    <% end %>
+    
+<% elsif current_user.status == 'disapproved' %>
+    <div class= "user-list-card-blank">
+        <i class='bx bx-happy-beaming' ></i> 
+        <p>Your account's approval is still pending. Please try again later.</p>
+    </div>
+<% else %>
+    <div class= "user-list-card-blank">
+        <i class='bx bx-confused' ></i> 
+        <p>Your account has been rejected. Please log out and try registering again using a different email.</p>
+    </div>
+<% end %>
+
