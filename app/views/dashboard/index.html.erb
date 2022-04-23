@@ -25,7 +25,7 @@
                     <%= link_to stocks_path do %>
                         <div class= "user-list-card-blank">
                             <i class='bx bx-happy-beaming' ></i> 
-                            <p>You have no stocks yet. Buy some?</p>
+                            <p>Empty portfolio! Click here to buy stocks</p>
                         </div>
                     <% end %>
                 <% end %>
@@ -38,7 +38,7 @@
                     <hr>
                     <div>
                         <h4>Add Balance</h4>
-                        <%= form_with url: dashboards_add_balance_path, class:"form-inline" do |f| %>
+                        <%= form_with url: dashboard_add_balance_path, class:"form-inline" do |f| %>
                             <div class="form-group mb-2">
                                 <%= f.number_field :amount, step: 0.01, class: "form-control" %>
                             </div>
@@ -57,7 +57,7 @@
             <%= form_tag search_stock_path, remote: true, method: :get do %>
                 <div class="form-group row">
                     <div class="col-sm-9 no-right-padding">
-                        <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
+                        <%= text_field_tag :stock, params[:stock], placeholder: "Search by stock ticker", autofocus: true, class: "form-control form-control-lg" %>
                     </div>
                     <div class="col-sm-3 no-left-padding">
                         <%= button_tag type: :submit, class: "btn btn-success add-user" do %>

@@ -1,0 +1,18 @@
+<div class="results-block">
+	<%= render 'layouts/alert' %>
+</div>
+
+<% if @stock %>
+	<div class="user-list">
+		<div class="user-list-card">
+			<div>
+				<span class="user-list-card-name"><%= @stock.name %> (<%= @stock.ticker %>)</span>
+				<p><%= number_to_currency(@stock.last_price)%>  per share </p>
+			</div>
+			<%= link_to show_stock_path(:stock_ticker => @stock.ticker.upcase, :transaction => 'buy') do %>
+				<button type="button" class="btn btn-success add-user">Buy</button>
+			<% end %>
+		</div>
+		
+	</div>
+<% end%>

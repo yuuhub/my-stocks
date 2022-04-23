@@ -1,24 +1,28 @@
 <div>
-        <nav class="navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
         
-            <div> <div class="header_toggle nav_logo"> <i class='bx bx-menu' id="header-toggle-side"></i> </div>
             <% if current_user.admin? %>            
                 <div class="nav_list"> 
                     <%= link_to root_path, class: "nav_link #{active_class(users_path)}" do %> <i class='bx bx-group nav_icon'></i> <span class="nav_name">All Users</span> <% end %>
                     <%= link_to pending_users_path, class: "nav_link #{active_class(pending_users_path)}" do %> <i class='bx bx-user-check nav_icon'></i> <span class="nav_name">Pending Users</span> <% end %>
                     <%= link_to rejected_users_path, class: "nav_link #{active_class(rejected_users_path)}" do %> <i class='bx bx-user-minus nav_icon'></i> <span class="nav_name">Rejected Users</span><% end %>
-                    <%= link_to new_user_registration_path, class: "nav_link #{active_class(new_user_registration_path)}" do %> <i class='bx bx-user-plus nav_icon'></i> <span class="nav_name">Add User</span> <% end %>
+                    <%= button_to('Logout', destroy_user_session_path, :method => :delete) %>
                 </div>
             <% else %>
                 <div class="nav_list"> 
                     <%= link_to root_path, class: "nav_link #{active_class(root_path)}" do %> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> <% end %>
                     <% if current_user.status == 'approved' %>  
                         <%= link_to stocks_path, class: "nav_link #{active_class(stocks_path)}" do %> <i class='bx bx-candles nav_icon'></i> <span class="nav_name">Stock Market</span> <% end %>
-                        <%= link_to transactions_path, class: "nav_link #{active_class(transactions_path)}" do %> <i class='bx bx-history nav_icon'></i> <span class="nav_name">Transactions</span> <% end %>
+                        <%= link_to transactions_path, class: "nav_link #{active_class(transactions_path)}" do %> <i class='bx bx-history nav_icon'></i> <span class="nav_name">Transactions</span> <% end %> 
+                        <%
+=begin%>
+ <%= link_to destroy_user_session_path, method: :delete , class: "nav_link" do %><i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Log Out</span><% end %> 
+<%
+=end%>
+                        <%= button_to('Logout', destroy_user_session_path, :method => :delete) %>
                     <% end %>
                 </div>
             <% end %>
             </div> 
-            <%= link_to destroy_user_session_path, method: :delete , class: "nav_link" do %><i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Log Out</span><% end %>
         </nav>
 </div>

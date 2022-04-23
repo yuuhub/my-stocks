@@ -1,0 +1,35 @@
+<h1><%= @page_header %></h1>
+
+  <div class="jumbotron user-info company-info">
+    <div>
+        <h1 class="display-4"><%= @stock.name %></h1>
+        <strong>Symbol: </strong> <%= @stock.ticker %> |
+        <strong>Price: </strong> <%= @stock.last_price %>
+    </div>
+  </div>
+
+<%= form_tag @transaction_path, method: :get do %>
+	<div class="form-group row">
+        <div class="col-sm-9 no-right-padding">
+                <%= text_field_tag :name, @stock.name, class: "form-control form-control-lg", type: :hidden %>
+        </div>
+
+        <div class="col-sm-9 no-right-padding">
+                <%= text_field_tag :ticker, @stock.ticker, class: "form-control form-control-lg", type: :hidden %>
+        </div>
+
+        <div class="col-sm-9 no-right-padding">
+                <%= text_field_tag :last_price, @stock.last_price, class: "form-control form-control-lg", type: :hidden %>
+        </div>
+
+        <div class="col-sm-9 no-right-padding">
+                <%= text_field_tag :quantity, params[:quantity], placeholder: "Quantity", autofocus: true, class: "form-control form-control-lg" %>
+        </div>
+        
+        <div class="col-sm-3">
+                <%= button_tag type: :submit, class: "btn #{@button_class}" do %>
+                        <%= @button_text %>
+                <% end %>
+        </div>
+    </div>
+<% end %>

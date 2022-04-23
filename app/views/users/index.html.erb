@@ -1,0 +1,33 @@
+<div class="all-user-title-container">
+    <div>
+        <h3>All Users</h3>
+    </div>
+    <%= link_to new_user_registration_path, class: 'btn btn-success add-user' do %><i class='bx bxs-user-plus' ></i><span>Add user</span><% end %>
+</div>
+<% if @users.where(:admin => false).any? %>
+    <div class="user-list">
+        <% @users.where(:admin => false).each do |user| %>
+            <%= link_to user_path(user) do %>
+                <div class= "user-list-card">
+                    <div>
+                    <span class="user-list-card-name"><%= user.name %></span><i class="bx <%= status_mark(user) %>"></i>
+                    <p><%= user.email %></p>
+                    </div>
+                    <div class="user-button-container">
+                        <%= link_to edit_user_path(user), class: "btn btn-success edit-user" do %> 
+                                Edit
+                        <% end %>
+                        <%= link_to user_path(user), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger delete-user" do %> 
+                                Delete
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+<% else %>
+    <div class= "user-list-card-blank">
+        <i class='bx bx-confused' ></i> 
+        <p>There are no users yet</p>
+    </div>
+<% end %>

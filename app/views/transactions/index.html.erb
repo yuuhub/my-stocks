@@ -1,0 +1,43 @@
+<h3>Transaction History</h3>
+<% if @transactions.any? %>
+    <table class="table">
+        <thead>
+            <th>Date and Time</th>
+            <th>Transaction</th>
+            <th>Company</th>
+            <th>Symbol</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+        </thead>
+        <tbody>
+            <% @transactions.each do |transaction| %>
+            <tr>
+            <td><%= transaction.created_at.strftime("%b %e, %Y %l:%M %p") %></td>
+            <td><%= transaction.transaction_type.capitalize %></td>
+            <td><%= transaction.name %></td>
+            <td><%= transaction.ticker %></td>
+            <td><%= number_with_delimiter(transaction.quantity, :delimiter => ',', :separator => '.') %></td>
+            <td><%= number_to_currency(transaction.price) %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <div class= "user-list-card-blank">
+        <i class='bx bx-happy-beaming' ></i> 
+        <p>There are no transactions yet.</p>
+    </div>
+<% end %>
+
+
+<%if false%>
+<% @transactions.each do |transaction| %>
+            <div class= "user-list-card">
+                <div>
+                    <span class="user-list-card-name"><%= transaction.name %></span>
+                <p><%= transaction.ticker %> | <%= transaction.quantity %> </p>
+            </div>
+            </div>
+
+            <% end %>
+            <% end %>

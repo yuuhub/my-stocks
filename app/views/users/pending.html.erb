@@ -1,0 +1,23 @@
+<h3>Pending Users</h3>
+<% if @users.any? %>
+    <div class="user-list">
+        <% @users.each do |user| %>
+            <%= link_to user_path(user) do %>
+                <div class= "user-list-card">
+                    <div class= "user-list-card-text">
+                    <span class="user-list-card-name"><%= user.name %></span><i class="bx <%= status_mark(user) %>"></i>
+                    <p><%= user.email %></p>
+                    </div>
+                    <div class="user-button-container">
+                        <%= link_to change_status_user_path(user, {status: 'approved', path: pending_users_path}), method: :patch, class: "btn btn-success approve-user" do %> 
+                                Approve
+                        <% end %>
+                        <%= link_to change_status_user_path(user, {status: 'rejected', path: pending_users_path}), method: :patch, class: "btn btn-success reject-user" do %> 
+                                Reject
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+<% end %>

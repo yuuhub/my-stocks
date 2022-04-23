@@ -1,0 +1,19 @@
+<div class="jumbotron user-info">
+  <div class="user-info-name" >
+    <i class="bx <%= status_mark(@user) %>"></i>
+    <h1 class="display-4">
+      <%= @user.name %>
+    </h1>
+    
+  </div>
+  <p class="lead">
+    Email: <%= @user.email %>
+  </p>
+  <p class="lead">
+    Balance: <%= number_to_currency(@user.balance) %>
+  </p>
+  <br/>
+  <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-secondary" %> 
+  <%= link_to 'Back', users_path, class: "btn btn-dark"  %>
+
+</div>

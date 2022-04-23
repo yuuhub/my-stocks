@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+    include ActionView::Helpers::NumberHelper
     def index
         redirect_to users_path if current_user.admin?
         @stocks = Stock.where(user_id: current_user.id, quantity: 1..)

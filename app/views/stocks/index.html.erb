@@ -5,11 +5,11 @@
         <%= form_tag search_stock_path, remote: true, method: :get do %>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
+                    <%= text_field_tag :stock, params[:stock], placeholder: "Search using stock ticker", autofocus: true, class: "form-control form-control-lg" %>
                 </div>
                 <div class="col-sm-3 no-left-padding">
                     <%= button_tag type: :submit, class: "btn btn-success add-user" do %>
-                        <i class="bx bx-search"></i>
+                        <%= fa_icon 'search 2x' %>
                     <% end %>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <%= link_to show_stock_path(:stock_ticker => stock.symbol, :transaction => 'buy'), class: "btn btn-success add-user" do %> 
                             Buy
                     <% end %>
-                    <%= link_to show_stock_path(:stock_ticker => stock.symbol, :transaction => 'sell'), class: "btn btn-danger delete-user" do %> 
+                    <%= link_to show_stock_path(:stock_ticker => stock.symbol, :transaction => 'sell'), class: "btn btn-danger delete-user", :data => {:confirm => 'Are you sure?'} do %> 
                             Sell
                     <% end %>
                 </div>
